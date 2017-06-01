@@ -1,0 +1,143 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml" collection="true">
+  <block type="procedures_defnoreturn" id="I=sv57%kM)tF3rb*kMlG">
+    <mutation>
+      <arg name="__inputTickList"></arg>
+      <arg name="__inputNeededLength"></arg>
+    </mutation>
+    <field name="NAME">updateLastDigitStats</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="variables_set" id="%@=VQV._5298FUXJ=m*,">
+        <field name="VAR">LastDigitStatsList</field>
+        <value name="VALUE">
+          <block type="lists_repeat" id=",;6C}%N)fJlQb7t;7j50">
+            <value name="ITEM">
+              <block type="math_number" id="RsKgkf)X85eF]]F`Cmu+">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="NUM">
+              <shadow type="math_number" id="]]s!5rQ.I/Bp}.H/)y#D">
+                <field name="NUM">5</field>
+              </shadow>
+              <block type="math_number" id="*,3zd.]qY_,6XuMEB]=Q">
+                <field name="NUM">9</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="d:uba]JHdz^tbB(pC68s">
+            <field name="VAR">__chunkedList</field>
+            <value name="VALUE">
+              <block type="lists_getSublist" id="mSuN(9^Rf):S(sK=jPXY">
+                <mutation at1="true" at2="true"></mutation>
+                <field name="WHERE1">FROM_END</field>
+                <field name="WHERE2">FROM_END</field>
+                <value name="LIST">
+                  <block type="variables_get" id="/yYIPTPE,AuR:vU1F6ix">
+                    <field name="VAR">__inputTickList</field>
+                  </block>
+                </value>
+                <value name="AT1">
+                  <block type="variables_get" id="4kN/PET.Gl?J0bG7X62-">
+                    <field name="VAR">__inputNeededLength</field>
+                  </block>
+                </value>
+                <value name="AT2">
+                  <block type="math_number" id="5^pg8QGr#$z)W!(m]3y8">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="controls_forEach" id="]6)c~NaljBxw|~*1rARY">
+                <field name="VAR">i</field>
+                <value name="LIST">
+                  <block type="variables_get" id="/a6UKJIBe6,jGV[zZ5QY">
+                    <field name="VAR">__chunkedList</field>
+                  </block>
+                </value>
+                <statement name="DO">
+                  <block type="variables_set" id="{_BH@ASe~CffO_o;`Rmn">
+                    <field name="VAR">__lastDigitOfTheTick</field>
+                    <value name="VALUE">
+                      <block type="procedures_callreturn" id="}2RfDC7oYp/~Z!Z53RU)">
+                        <mutation name="getLastDigitOfTheTick">
+                          <arg name="__inputTickNumber"></arg>
+                        </mutation>
+                        <value name="ARG0">
+                          <block type="variables_get" id="pL~W~Hv^%.u6heXKHkfB">
+                            <field name="VAR">i</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set" id="Qm/HC;+.oJ7FY3vN88BW">
+                        <field name="VAR">__statsElement</field>
+                        <value name="VALUE">
+                          <block type="lists_getIndex" id="I?[gy;y24!aoWf3Ku;sa">
+                            <mutation statement="false" at="true"></mutation>
+                            <field name="MODE">GET</field>
+                            <field name="WHERE">FROM_START</field>
+                            <value name="VALUE">
+                              <block type="variables_get" id="m2aE*{GD1YH}6t4m/=i,">
+                                <field name="VAR">LastDigitStatsList</field>
+                              </block>
+                            </value>
+                            <value name="AT">
+                              <block type="variables_get" id="MgcZ;e9XD^hw7^6em[kD">
+                                <field name="VAR">__lastDigitOfTheTick</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="math_change" id="22*{BZhQj(#xqo7-d)Mf">
+                            <field name="VAR">__statsElement</field>
+                            <value name="DELTA">
+                              <shadow type="math_number" id="p@`Kq`g_?aDqv]m|BB?Z">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="math_number" id="Dcx+zF4LzyUB8qDu6ia1">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="lists_setIndex" id="iF94!~s_}ukmpPy_0Ci:">
+                                <mutation at="true"></mutation>
+                                <field name="MODE">SET</field>
+                                <field name="WHERE">FROM_START</field>
+                                <value name="LIST">
+                                  <block type="variables_get" id="wub}^bt|%03Z%l7yGdbd">
+                                    <field name="VAR">LastDigitStatsList</field>
+                                  </block>
+                                </value>
+                                <value name="AT">
+                                  <block type="variables_get" id="vvCmNiucS!DuSVp(chSI">
+                                    <field name="VAR">__lastDigitOfTheTick</field>
+                                  </block>
+                                </value>
+                                <value name="TO">
+                                  <block type="variables_get" id="zy[o,veawWF{5~-r0p}U">
+                                    <field name="VAR">__statsElement</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

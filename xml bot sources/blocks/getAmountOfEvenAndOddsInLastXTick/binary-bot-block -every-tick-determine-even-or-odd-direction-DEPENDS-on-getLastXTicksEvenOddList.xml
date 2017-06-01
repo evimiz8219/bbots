@@ -1,0 +1,128 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml" collection="true">
+  <block type="tick_analysis" id="@Q~Nh@T2F^P?Lrx/lc_t">
+    <statement name="TICKANALYSIS_STACK">
+      <block type="variables_set" id=",Bh2qO=Iq,2$GrpRalGP">
+        <field name="VAR">TradeEven</field>
+        <value name="VALUE">
+          <block type="logic_boolean" id="HXSk(r!sKVmlCv8e`k$I">
+            <field name="BOOL">FALSE</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="mx=[V.*W91hzQ?@|(cN=">
+            <field name="VAR">TradeOdd</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="E|BPVG;HtnT05]`S,g7|">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="YX+(@_O*t$SW=HkxtVjz">
+                <field name="VAR">ListEvenOdd</field>
+                <value name="VALUE">
+                  <block type="procedures_callreturn" id="vMeP`B~d:`R/ca%1O`-b">
+                    <mutation name="getLastXTicksEvenOddList">
+                      <arg name="__input_list"></arg>
+                      <arg name="__input_list_length"></arg>
+                    </mutation>
+                    <value name="ARG0">
+                      <block type="ticks" id="|J()mlgRCG|:wB:G+D;Y"></block>
+                    </value>
+                    <value name="ARG1">
+                      <block type="math_number" id="eQ/2jA_5hO+[BLmwXSr-">
+                        <field name="NUM">100</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if" id="RdqhQYxf_-D?ddl0#KFg">
+                    <mutation elseif="1"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare" id=")H(}n~m*JoDoLXz8@oh2">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lists_getIndex" id=".8MHUKsLl`/bXWh)hz+n">
+                            <mutation statement="false" at="false"></mutation>
+                            <field name="MODE">GET</field>
+                            <field name="WHERE">FIRST</field>
+                            <value name="VALUE">
+                              <block type="variables_get" id="xUcj5AHUQ=Z-Sg^.sNE,">
+                                <field name="VAR">ListEvenOdd</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lists_getIndex" id="c|e[nzL42}Ge(]8kQA7e">
+                            <mutation statement="false" at="false"></mutation>
+                            <field name="MODE">GET</field>
+                            <field name="WHERE">LAST</field>
+                            <value name="VALUE">
+                              <block type="variables_get" id="8RNc+pPE|81W*H[T_so3">
+                                <field name="VAR">ListEvenOdd</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="variables_set" id="TN1Rc@JiKW{Q;CRnQ4L[">
+                        <field name="VAR">TradeEven</field>
+                        <value name="VALUE">
+                          <block type="logic_boolean" id="_gmoB`u9g0EJ%.dkF{YI">
+                            <field name="BOOL">TRUE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF1">
+                      <block type="logic_compare" id="A$K9-`$i3d@RnWQ9KVZL">
+                        <field name="OP">LT</field>
+                        <value name="A">
+                          <block type="lists_getIndex" id="c0LS8u;+pTTuHA:(#Pc+">
+                            <mutation statement="false" at="false"></mutation>
+                            <field name="MODE">GET</field>
+                            <field name="WHERE">FIRST</field>
+                            <value name="VALUE">
+                              <block type="variables_get" id="7HL2xc=PB8uJeFw7ng?%">
+                                <field name="VAR">ListEvenOdd</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lists_getIndex" id="m;[r.;vQ[b*fwJA-.GMM">
+                            <mutation statement="false" at="false"></mutation>
+                            <field name="MODE">GET</field>
+                            <field name="WHERE">LAST</field>
+                            <value name="VALUE">
+                              <block type="variables_get" id="vT;Io-j:4zt=QEhRNFX+">
+                                <field name="VAR">ListEvenOdd</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO1">
+                      <block type="variables_set" id="YEd~M?J%fGV+OSmE,_Sf">
+                        <field name="VAR">TradeOdd</field>
+                        <value name="VALUE">
+                          <block type="logic_boolean" id="x#,N(bjo.MR-%B}VS[c;">
+                            <field name="BOOL">TRUE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

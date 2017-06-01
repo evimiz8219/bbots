@@ -1,0 +1,20 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml" collection="true">
+  <block type="tick_analysis" id="2b9R{.]~zQ?tiruV}`G.">
+    <statement name="TICKANALYSIS_STACK">
+      <block type="procedures_callnoreturn" id="l(e%4HuO[6Okg1p@o`T]">
+        <mutation name="updateLastDigitStats">
+          <arg name="__inputTickList"></arg>
+          <arg name="__inputNeededLength"></arg>
+        </mutation>
+        <value name="ARG0">
+          <block type="ticks" id="TW4j@Fm`e,8n6@2wNM05"></block>
+        </value>
+        <value name="ARG1">
+          <block type="variables_get" id=".=$g`uW[9GO}R9))H~{j">
+            <field name="VAR">amountOfTicksToCheck</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>

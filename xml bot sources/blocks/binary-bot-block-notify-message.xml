@@ -1,0 +1,20 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml" collection="true">
+  <block type="notify" id="~=t=fkc$cO*uH9.93BpP">
+    <field name="NOTIFICATION_TYPE">success</field>
+    <value name="MESSAGE">
+      <block type="text_join" id="Y9#KsrU)A]%ti(yxtQqm">
+        <mutation items="2"></mutation>
+        <value name="ADD0">
+          <block type="text" id="V`GT6Tz0,)$6!ZoT=5l,">
+            <field name="TEXT">Text Bolck</field>
+          </block>
+        </value>
+        <value name="ADD1">
+          <block type="text" id="nA_=e-(S3^sqc(U+`%_%">
+            <field name="TEXT">Text Bolck</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>

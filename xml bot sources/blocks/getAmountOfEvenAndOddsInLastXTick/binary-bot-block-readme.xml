@@ -1,0 +1,58 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml" collection="true">
+  <block type="block_holder" id="(V4(rgyGuA[cgc04_aR9">
+    <statement name="USELESS_STACK">
+      <block type="text_print" id="tq$#g$,/QI7Kaz[0;V@C">
+        <value name="TEXT">
+          <shadow type="text" id=";Hm2LYA(b8Vq,,4e/?O7">
+            <field name="TEXT">This function returns a list what has 2 numbers</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="text_print" id="aI$S%h(9gWvPA)Slu!qA">
+            <value name="TEXT">
+              <shadow type="text" id="kGa5lMI)R}TYd$n.WdZp">
+                <field name="TEXT">First number is amount of Even ticks</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="text_print" id="xC_[dbDq{U38b~,?Wz:|">
+                <value name="TEXT">
+                  <shadow type="text" id="%+lK,QtzJKDUz-[5H6EA">
+                    <field name="TEXT">Second number is amount of Odd ticks</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="text_print" id="x]w(ZT#.I4`D)c0j2fCT">
+                    <value name="TEXT">
+                      <shadow type="text" id="TLQk-kqC28DhwrB:ppv7">
+                        <field name="TEXT">It expects for two input parameters:</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="text_print" id="^yUVBcf}+j^cLTU.ehTZ">
+                        <value name="TEXT">
+                          <shadow type="text" id="~yp(JvgfSp(860e6xgF(">
+                            <field name="TEXT">1 - list of ticks to check</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="text_print" id="y^]_77~Bx0jXDxk@KTA[">
+                            <value name="TEXT">
+                              <shadow type="text" id=";]wD1aX;-vCmg)M8f;R:">
+                                <field name="TEXT">2 - amount of ticks to take from 1 parameter</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

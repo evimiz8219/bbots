@@ -1,0 +1,143 @@
+﻿<xml xmlns="http://www.w3.org/1999/xhtml" collection="true">
+  <block type="procedures_defreturn" id="jo~=C?Ye~BV1t;MS_RQ+">
+    <mutation>
+      <arg name="__inputTickNumber"></arg>
+    </mutation>
+    <field name="NAME">getLastDigitOfTheTick</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="variables_set" id="U|:B_1QRX:DsGd4ik5JD">
+        <field name="VAR">__stringValueOfTheTick</field>
+        <value name="VALUE">
+          <block type="text_join" id="?Z/HNHA|A,jnk3g:*gvw">
+            <mutation items="1"></mutation>
+            <value name="ADD0">
+              <block type="variables_get" id="-Qess*.+1~k8Pb+@;K(q">
+                <field name="VAR">__inputTickNumber</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="xcx^3,85|]Sd@el+)(Xy">
+            <field name="VAR">__delemiterPosition</field>
+            <value name="VALUE">
+              <block type="text_indexOf" id="ad,BtZsEGsH{$[+tBgRs">
+                <field name="END">LAST</field>
+                <value name="VALUE">
+                  <block type="variables_get" id="Bd.tkE^!`JD7[eyM:U_k">
+                    <field name="VAR">__stringValueOfTheTick</field>
+                  </block>
+                </value>
+                <value name="FIND">
+                  <shadow type="text" id="=tO.XnTe6uZgK5_(0T5x">
+                    <field name="TEXT">abc</field>
+                  </shadow>
+                  <block type="variables_get" id="mu*gX{d+dS9JeP#8@3n(">
+                    <field name="VAR">fractionDelemiter</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="C(*mA-E3OHx|sdYxb}54">
+                <field name="VAR">__fractionPart</field>
+                <value name="VALUE">
+                  <block type="text_getSubstring" id="gf92wcF/)d:t!Mo:q6=6">
+                    <mutation at1="true" at2="true"></mutation>
+                    <field name="WHERE1">FROM_START</field>
+                    <field name="WHERE2">FROM_END</field>
+                    <value name="STRING">
+                      <block type="variables_get" id="Pcj$d}QbghqJugT4jj_K">
+                        <field name="VAR">__stringValueOfTheTick</field>
+                      </block>
+                    </value>
+                    <value name="AT1">
+                      <block type="variables_get" id="liJoF_akW2`O0pY/UUb@">
+                        <field name="VAR">__delemiterPosition</field>
+                      </block>
+                    </value>
+                    <value name="AT2">
+                      <block type="math_number" id="@iM0l8ando`et#+L$u.O">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="eI{i8p(/8tyv{}Qu]bi7">
+                    <field name="VAR">__stringLastDigit</field>
+                    <value name="VALUE">
+                      <block type="text_charAt" id="/,+i]rjn.yL]$Y!P4Fa|">
+                        <mutation at="true"></mutation>
+                        <field name="WHERE">FROM_START</field>
+                        <value name="VALUE">
+                          <block type="variables_get" id="$87popp~sG51-$mhxrr9">
+                            <field name="VAR">__stringValueOfTheTick</field>
+                          </block>
+                        </value>
+                        <value name="AT">
+                          <block type="text_length" id="ioR{CWJKnoyrg8Fe5G:n">
+                            <value name="VALUE">
+                              <shadow type="text" id="sSqpClJ,CzS5!qA#,]c6">
+                                <field name="TEXT">abc</field>
+                              </shadow>
+                              <block type="variables_get" id="`7UkEkNHt:ElZd+(-(.5">
+                                <field name="VAR">__stringValueOfTheTick</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="oKFfKq;,fLRd4D}uCYZx">
+                        <value name="IF0">
+                          <block type="logic_compare" id="rS;/H8@.K4|x|0_}mwn:">
+                            <field name="OP">LT</field>
+                            <value name="A">
+                              <block type="text_length" id="6U7?D._qxjS5Mgf8mc6N">
+                                <value name="VALUE">
+                                  <shadow type="text" id="fP;F+$EyWsWL=I+uP,eN">
+                                    <field name="TEXT">abc</field>
+                                  </shadow>
+                                  <block type="variables_get" id="Xm}++wKmz9]()uB[0$Q=">
+                                    <field name="VAR">__fractionPart</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="variables_get" id="n{Z=sY?o*[YE((+#PT46">
+                                <field name="VAR">fractionPartLength</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="variables_set" id="1GtY~#P4{LMZToY=D,qm">
+                            <field name="VAR">__stringLastDigit</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="|8a%mU7fWt~je.^i-g4j">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="RETURN">
+      <block type="variables_get" id="z|L5oY+Ioe0l!}yUU8k3">
+        <field name="VAR">__stringLastDigit</field>
+      </block>
+    </value>
+  </block>
+</xml>
