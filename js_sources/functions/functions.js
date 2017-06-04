@@ -12,11 +12,18 @@
 var Token = 'XXXXXXXXXXX';
 
 /**
+ * Initial bet size
+ *
+ * @type {number}
+ */
+var InitialBetAmount = 1;
+
+/**
  * Current bet size
  *
  * @type {number}
  */
-var BetAmount = 1;
+var BetAmount = InitialBetAmount;
 
 /**
  * Current asset to trade
@@ -178,12 +185,44 @@ var LossChainLength = 0;
 var MaxLossChainLength = 0;
 
 /**
+ * Number of consequently received wins since last win
+ *
+ * Optional to use - for analytical purposes only
+ *
+ * @type {number}
+ */
+var WinChainLength = 0;
+
+/**
+ * Length of the maximum chain of consequently received wins during the trading session
+ *
+ * Optional to use - for analytical purposes only
+ *
+ * @type {number}
+ */
+var MaxWinChainLength = 0;
+
+/**
+ * Maximum profit what was reached during the trading session
+ *
+ * @type {number}
+ */
+var MaxWinAmount = 0;
+
+/**
  * Would contain tradeType / direction
  * i.e. 'DIGITODD', 'CALL' etc
  *
  * @type {boolean}
  */
 var TradeType = false;
+
+/**
+ * Contract return percentage - used for martingale based strategies
+ *
+ * @type {number}
+ */
+var ReturnPercent = 0.94;
 
 /**
  *********************
@@ -202,6 +241,8 @@ var TradeType = false;
  * @returns {boolean}
  */
 var IsSignalToTrade = function(ticksList) {
+    TradeType = 'DIGITODD';
+
     return true;
 };
 
@@ -475,12 +516,15 @@ var GetDigitPercentStats = function(statsList, totalCountedDigits) {
  *
  *  Currently, DTO structure looks like:
  *
- *      var tradeStatsDto = {
+ *     var tradeStatsDto = {
  *       'total_profit'         : TotalProfit,
  *       'wins_count'           : WinsCount,
  *       'loss_count'           : LossCount,
  *       'loss_chain_length'    : LossChainLength,
- *       'max_loss_chain_length': MaxLossChainLength
+ *       'max_loss_chain_length': MaxLossChainLength,
+ *       'win_chain_length'     : WinChainLength,
+ *       'max_win_chain_length' : MaxWinChainLength,
+ *       'max_win_amount'       : MaxWinAmount
  *   };
  *
  * This function is sort of a placeholder since it might be changed a lot depending on a given set of parameters.
@@ -502,6 +546,11 @@ var ShowTradeSessionStats = function (tradeStatsDto, afterTrade) {
     console.log('    Current Consequence Loss', tradeStatsDto.loss_chain_length);
     console.log('    Max     Consequence Loss', tradeStatsDto.max_loss_chain_length);
     console.log('--------------------------');
+    console.log('    Current Consequence Win', tradeStatsDto.win_chain_length);
+    console.log('    Max     Consequence Win', tradeStatsDto.max_win_chain_length);
+    console.log('--------------------------');
+    console.log();
+    console.log('    Max Reached Profit', tradeStatsDto.max_win_amount);
     console.log();
     console.log('    Total Profit', tradeStatsDto.total_profit);
     console.log();
@@ -543,6 +592,8 @@ console.log('Starting bot...');
 
 while (IsTradeActive) {
 
+    console.log('In trade');
+
     Bot.start(TradeOptions) ;
 
     console.log('====================================');
@@ -552,6 +603,10 @@ while (IsTradeActive) {
 
     while(watch('before')) {
         console.log('====================================');
+
+        console.log('5 sec Sleep start...');
+        sleep(5);
+        console.log('5 sec Sleep finished...');
 
         DigitStats = GetDigitStats(
             GetChunkOfTheList(Bot.getTicks(), numberOfTicksToAnalyze), 10, RealTickLength
@@ -565,36 +620,60 @@ while (IsTradeActive) {
     }
 
     while(watch('during')) {
+        console.log('1 sec Sleep start...');
+        sleep(1);
+        console.log('1 sec Sleep finished...');
+
         console.log('In purchase now...', new Date().toLocaleString());
     }
 
-    console.log('Last Tick  After', Bot.getLastTick());
-    console.log('Last Digit After', Bot.getLastDigit());
+    // console.log('Last Tick  After', Bot.getLastTick());
+    // console.log('Last Digit After', Bot.getLastDigit());
     console.log('--------------------------');
     console.log('Contract finished.');
 
     var tradeResult = Bot.readDetails(11);
 
     if (tradeResult === 'win') {
+        BetAmount = InitialBetAmount;
+
         WinsCount++;
         LossChainLength = 0;
+        WinChainLength++;
     } else if (tradeResult === 'loss') {
         LossCount++;
+        WinChainLength=0;
         LossChainLength++;
+
+        BetAmount += Round(BetAmount / ReturnPercent, 2);
+
+        console.log('New BetAmount', BetAmount);
+        console.log('--------------------------');
     }
 
     if (LossChainLength > MaxLossChainLength) {
         MaxLossChainLength = LossChainLength;
     }
 
+    if (WinChainLength > MaxWinChainLength) {
+        MaxWinChainLength = WinChainLength;
+    }
+
     TotalProfit = Bot.getTotalProfit();
+
+    if (TotalProfit > MaxWinAmount) {
+        MaxWinAmount = TotalProfit;
+    }
 
     var tradeStatsDto = {
         'total_profit'         : TotalProfit,
         'wins_count'           : WinsCount,
         'loss_count'           : LossCount,
         'loss_chain_length'    : LossChainLength,
-        'max_loss_chain_length': MaxLossChainLength
+        'max_loss_chain_length': MaxLossChainLength,
+        'win_chain_length'     : WinChainLength,
+        'max_win_chain_length' : MaxWinChainLength,
+        'max_win_amount'       : MaxWinAmount
     };
 
     ShowTradeSessionStats(tradeStatsDto, false);
@@ -603,6 +682,15 @@ while (IsTradeActive) {
     sleep(1);
 
     IsTradeActive = ShouldTradeRemainActive(TotalProfit, ExpectedProfit, MaxAcceptableLoss);
+
+    BotInitOptions.amount = BetAmount;
+
+    Bot.init(Token, BotInitOptions);
+
+    // Prevent max sell alert because of trading too fast
+    console.log('6 sec Sleep start...');
+    sleep(6);
+    console.log('6 sec Sleep finished...');
 }
 
 console.log('Trade started at', StartDateTime);
