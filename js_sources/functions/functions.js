@@ -178,6 +178,14 @@ var LossChainLength = 0;
 var MaxLossChainLength = 0;
 
 /**
+ * Would contain tradeType / direction
+ * i.e. 'DIGITODD', 'CALL' etc
+ *
+ * @type {boolean}
+ */
+var TradeType = false;
+
+/**
  *********************
  *     Functions     *
  *********************
@@ -500,6 +508,18 @@ var ShowTradeSessionStats = function (tradeStatsDto, afterTrade) {
 };
 
 /**
+ * Rounds given value to given decimal length
+ *
+ * @param {number} value
+ * @param {number} decimals
+ *
+ * @returns {number}
+ */
+var Round = function (value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+};
+
+/**
  **************************************************
  *   SetUp - initializing some global variables   *
  **************************************************
@@ -539,10 +559,13 @@ while (IsTradeActive) {
 
         DigitPercentStats = GetDigitPercentStats(DigitStats, numberOfTicksToAnalyze);
 
-        Bot.purchase('DIGITODD');
+        if(IsSignalToTrade(DigitPercentStats)) {
+            Bot.purchase(TradeType);
+        }
     }
 
     while(watch('during')) {
+        console.log('In purchase now...', new Date().toLocaleString());
     }
 
     console.log('Last Tick  After', Bot.getLastTick());
